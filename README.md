@@ -36,3 +36,9 @@ For production, use HTTPS, set a strong persistent SESSION_SECRET, configure an 
 ## Demo data and limitations
 
 Seeded catalogue, members, and circulation entries are fictional demo records. Confirm university policies, contact details, and image permissions before using this as an official BBAU service. This is a functional single-server project; it is not yet integrated with university identity systems, email, or a managed PostgreSQL service.
+
+## Deploy on Render
+
+The repository includes render.yaml for a Node web service, HTTPS, health checks, and a 1 GB persistent disk mounted at /var/data. In Render, choose New > Blueprint, connect this GitHub repository, and apply the Blueprint. Render will ask for ADMIN_PASSWORD; choose a strong password and save it. The generated SESSION_SECRET and database path are configured by the Blueprint. After deployment, open the service URL and sign in as admin@bbau.ac.in.
+
+This setup uses Render's paid Starter web service because persistent disks are not available on free web services. Render lists persistent disk storage at $0.25 per GB per month, in addition to service compute charges. Check Render's current pricing before applying the Blueprint. SQLite on a single attached disk supports one server instance; do not scale this service horizontally.
