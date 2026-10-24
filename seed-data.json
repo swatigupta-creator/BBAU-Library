@@ -1,0 +1,224 @@
+{
+  "books": [
+    {
+      "id": "BK-1042",
+      "title": "The Discovery of India",
+      "author": "Jawaharlal Nehru",
+      "category": "History",
+      "year": 1946,
+      "copies": 5,
+      "available": 3,
+      "color": 1
+    },
+    {
+      "id": "BK-1038",
+      "title": "India After Gandhi",
+      "author": "Ramachandra Guha",
+      "category": "History",
+      "year": 2007,
+      "copies": 4,
+      "available": 1,
+      "color": 2
+    },
+    {
+      "id": "BK-1029",
+      "title": "The Argumentative Indian",
+      "author": "Amartya Sen",
+      "category": "Philosophy",
+      "year": 2005,
+      "copies": 3,
+      "available": 2,
+      "color": 3
+    },
+    {
+      "id": "BK-1017",
+      "title": "Wings of Fire",
+      "author": "A. P. J. Abdul Kalam",
+      "category": "Biography",
+      "year": 1999,
+      "copies": 6,
+      "available": 4,
+      "color": 4
+    },
+    {
+      "id": "BK-1008",
+      "title": "Annihilation of Caste",
+      "author": "B. R. Ambedkar",
+      "category": "Social Sciences",
+      "year": 1936,
+      "copies": 5,
+      "available": 2,
+      "color": 5
+    },
+    {
+      "id": "BK-1001",
+      "title": "The Great Indian Novel",
+      "author": "Shashi Tharoor",
+      "category": "Literature",
+      "year": 1989,
+      "copies": 4,
+      "available": 4,
+      "color": 6
+    },
+    {
+      "id": "BK-0996",
+      "title": "India: A History",
+      "author": "John Keay",
+      "category": "History",
+      "year": 2000,
+      "copies": 3,
+      "available": 0,
+      "color": 2
+    },
+    {
+      "id": "BK-0981",
+      "title": "The Idea of Justice",
+      "author": "Amartya Sen",
+      "category": "Philosophy",
+      "year": 2009,
+      "copies": 2,
+      "available": 1,
+      "color": 3
+    },
+    {
+      "id": "BK-0973",
+      "title": "My Experiments with Truth",
+      "author": "M. K. Gandhi",
+      "category": "Biography",
+      "year": 1927,
+      "copies": 4,
+      "available": 3,
+      "color": 4
+    }
+  ],
+  "members": [
+    {
+      "id": "ST-2024-014",
+      "name": "Ananya Sharma",
+      "email": "ananya.sharma@bbau.ac.in",
+      "department": "Political Science",
+      "role": "Student",
+      "status": "Active"
+    },
+    {
+      "id": "ST-2023-087",
+      "name": "Rahul Verma",
+      "email": "rahul.verma@bbau.ac.in",
+      "department": "History",
+      "role": "Student",
+      "status": "Active"
+    },
+    {
+      "id": "FC-2021-006",
+      "name": "Dr. Meera Joshi",
+      "email": "meera.joshi@bbau.ac.in",
+      "department": "Social Sciences",
+      "role": "Faculty",
+      "status": "Active"
+    },
+    {
+      "id": "ST-2024-039",
+      "name": "Aarav Khan",
+      "email": "aarav.khan@bbau.ac.in",
+      "department": "English",
+      "role": "Student",
+      "status": "Active"
+    },
+    {
+      "id": "ST-2022-112",
+      "name": "Priya Singh",
+      "email": "priya.singh@bbau.ac.in",
+      "department": "Economics",
+      "role": "Student",
+      "status": "Active"
+    }
+  ],
+  "loans": [
+    {
+      "id": "LN-2401",
+      "bookId": "BK-1042",
+      "memberId": "ST-2024-014",
+      "issued": "2026-10-18",
+      "due": "2026-11-01",
+      "status": "Issued"
+    },
+    {
+      "id": "LN-2398",
+      "bookId": "BK-1008",
+      "memberId": "ST-2023-087",
+      "issued": "2026-10-04",
+      "due": "2026-10-18",
+      "status": "Overdue"
+    },
+    {
+      "id": "LN-2392",
+      "bookId": "BK-1029",
+      "memberId": "FC-2021-006",
+      "issued": "2026-10-12",
+      "due": "2026-10-26",
+      "status": "Issued"
+    },
+    {
+      "id": "LN-2389",
+      "bookId": "BK-0996",
+      "memberId": "ST-2024-039",
+      "issued": "2026-09-20",
+      "due": "2026-10-04",
+      "status": "Overdue"
+    },
+    {
+      "id": "LN-2383",
+      "bookId": "BK-1017",
+      "memberId": "ST-2022-112",
+      "issued": "2026-10-19",
+      "due": "2026-11-02",
+      "status": "Issued"
+    }
+  ],
+  "reservations": [
+    {
+      "id": "RS-0184",
+      "bookId": "BK-0996",
+      "memberId": "ST-2024-014",
+      "date": "2026-10-22",
+      "status": "Pending"
+    },
+    {
+      "id": "RS-0181",
+      "bookId": "BK-1038",
+      "memberId": "ST-2022-112",
+      "date": "2026-10-21",
+      "status": "Pending"
+    }
+  ],
+  "activity": [
+    {
+      "icon": "↗",
+      "tone": "green",
+      "title": "Book issued to Ananya Sharma",
+      "detail": "The Discovery of India · BK-1042",
+      "time": "12 min ago"
+    },
+    {
+      "icon": "↙",
+      "tone": "gold",
+      "title": "Return processed",
+      "detail": "Wings of Fire · ST-2022-112",
+      "time": "48 min ago"
+    },
+    {
+      "icon": "＋",
+      "tone": "",
+      "title": "New member registered",
+      "detail": "Aarav Khan · English",
+      "time": "2 hours ago"
+    },
+    {
+      "icon": "◷",
+      "tone": "gold",
+      "title": "Reservation placed",
+      "detail": "India: A History · ST-2024-014",
+      "time": "3 hours ago"
+    }
+  ]
+}
