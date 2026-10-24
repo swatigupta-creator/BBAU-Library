@@ -11,10 +11,11 @@ A responsive library management website for Babasaheb Bhimrao Ambedkar Universit
 
 1. Open this folder in VS Code.
 2. Install dependencies: npm install
-3. Copy .env.example to .env.
-4. In .env, set a long random SESSION_SECRET and a private ADMIN_PASSWORD. Keep .env private; it is ignored by Git.
-5. Start the app: npm start
-6. Open http://localhost:3000.
+3. Run npm run setup. It creates a private .env file and prints a one-time administrator password; save that password.
+4. Start the app: npm start
+5. Open http://localhost:3000 and sign in as admin@bbau.ac.in using the generated password. New students can register from the Student login screen.
+
+The .env file is ignored by Git. To change the administrator password later, edit ADMIN_PASSWORD in .env and restart the server.
 
 The SQLite database is created at data/bbau-library.sqlite the first time the server runs. Sample book and circulation records are inserted for a first walkthrough. Student accounts are created from the Student registration flow. The administrator email and password come from .env.
 
