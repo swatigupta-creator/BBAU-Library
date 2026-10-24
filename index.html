@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="theme-color" content="#f7f8fb" />
+  <meta name="description" content="BBAU Digital Library — discover books, manage circulation and explore university resources." /><title>BBAU Digital Library</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" /><link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>  <section class="auth-screen" id="authScreen" aria-label="Library sign in"></section>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#dashboard" aria-label="BBAU Digital Library home"><span class="brand-mark">B</span><span><b>BBAU</b><small>Digital Library</small></span></a>
+      <div class="side-label">Workspace</div>
+      <nav class="side-nav" aria-label="Main navigation">
+        <button class="nav-item active" data-page="dashboard"><span class="nav-icon">▦</span>Overview</button>
+        <button class="nav-item" data-page="gallery"><span class="nav-icon">▧</span>Library gallery</button><button class="nav-item" data-page="catalog"><span class="nav-icon">▤</span>Book catalog <span class="nav-count" id="catalogCount">0</span></button><button class="nav-item student-only" data-page="my-reservations"><span class="nav-icon">◷</span>My reservations</button>
+        <button class="nav-item admin-only" data-page="circulation"><span class="nav-icon">⇄</span>Circulation</button>
+        <button class="nav-item admin-only" data-page="members"><span class="nav-icon">♙</span>Members</button>
+        <button class="nav-item admin-only" data-page="reservations"><span class="nav-icon">◷</span>Reservations <span class="nav-dot"></span></button>
+      </nav>
+      <div class="side-label side-label-lower admin-only">Manage</div>
+      <nav class="side-nav" aria-label="Manage library"><button class="nav-item admin-only" data-page="reports"><span class="nav-icon">▥</span>Reports</button><button class="nav-item" data-page="resources"><span class="nav-icon">⌘</span>Digital resources</button></nav>
+      <div class="sidebar-bottom">
+        <div class="help-card"><div class="help-badge">i</div><b>Need a hand?</b><p>Visit the library help desk for support.</p><a href="#support" data-page-link="support">Get support <span>↗</span></a></div>
+        <button class="profile-mini" id="profileButton"><span class="avatar">AS</span><span><b>Library Admin</b><small>Administrator</small></span><span class="more">···</span></button>
+      </div>
+    </aside>
+    <main id="main" class="main-area">
+      <header class="topbar"><button class="mobile-menu" id="menuToggle" aria-label="Open navigation">☰</button><div class="breadcrumb"><span>Library</span><span class="crumb-slash">/</span><b id="pageCrumb">Overview</b></div><div class="top-actions"><span class="demo-tag"><i></i> DEMO DATA</span><button class="icon-button" id="notificationButton" aria-label="Notifications">♧<span class="notification-dot"></span></button><span class="top-divider"></span><span class="avatar avatar-small">AS</span></div></header>
+      <section class="page-content" id="pageContent"></section><footer class="footer"><span>© 2026 BBAU Digital Library</span><span>University project demo · Sample records only</span></footer>
+    </main>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div><div id="modalRoot"></div><script src="app.js"></script>
+</body></html>
+
+
+
