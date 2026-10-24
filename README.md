@@ -1,46 +1,37 @@
-# BBAU Digital Library — demo
+# BBAU Digital Library
 
-A responsive library management web app prototype for Babasaheb Bhimrao Ambedkar University. It is designed to help explore the intended product experience and key circulation workflows.
+A responsive library management website for Babasaheb Bhimrao Ambedkar University. It includes a Node.js/Express API, SQLite persistence, server-side student/admin accounts, and role-checked borrowing and library management actions.
+
+## Requirements
+
+- Node.js 22.5 or newer
+- npm
 
 ## Run locally
 
-Open `index.html` in a browser, or serve the folder with any static server. For example:
+1. Open this folder in VS Code.
+2. Install dependencies: npm install
+3. Copy .env.example to .env.
+4. In .env, set a long random SESSION_SECRET and a private ADMIN_PASSWORD. Keep .env private; it is ignored by Git.
+5. Start the app: npm start
+6. Open http://localhost:3000.
 
-```powershell
-npx serve .
-```
+The SQLite database is created at data/bbau-library.sqlite the first time the server runs. Sample book and circulation records are inserted for a first walkthrough. Student accounts are created from the Student registration flow. The administrator email and password come from .env.
 
-No build step or runtime dependencies are required.
+## Backend
 
-## Included in this demo
+- Express serves the frontend and JSON API from one origin.
+- SQLite stores the library state and user records persistently on disk.
+- Passwords are hashed with bcrypt; sessions use HTTP-only, same-site cookies.
+- Login requests are rate-limited.
+- Student endpoints only allow a student to borrow available books, reserve unavailable titles, and cancel their own reservations.
+- Admin-only state updates back the add-book, add-member, issue/return, reservation queue, and report features.
+- Support requests are saved to SQLite.
 
-- Role picker on open with separate Student and Admin demo sign-in flows
-- Student dashboard with personal loans, due dates, and reservations
-- Admin dashboard with sample collection and circulation metrics
-- Searchable, filterable book catalog with availability
-- Admin can add titles and members; issue and return books with inventory updates
-- Reservation queue with cancellation and fulfillment
-- Member directory, reports CSV export, public digital resource links, and support form
-- Browser localStorage persistence for the demo records
+## Important deployment note
 
-## Demo sign-in
+For production, use HTTPS, set a strong persistent SESSION_SECRET, configure an administrator password through the hosting provider's secret settings, and attach persistent disk storage for the SQLite database. Sessions and app data are stored in SQLite on the attached disk. The single-file database is intended for a single server instance; use a managed database before horizontal scaling. Never commit .env or the SQLite database.
 
-- Student demo account: `student@bbau.ac.in` / `student123`
-- New students can create separate browser-local accounts from the Student sign-in screen.
-- Admin: `admin@bbau.ac.in` / `admin123`
+## Demo data and limitations
 
-Student registration and login are stored in this browser only. Passwords are hashed locally for this demonstration. The role gate and permissions remain client-side demo behavior only and are not secure production authentication.
-
-## Demo data and production work
-
-All seeded books, member records, activity, metrics, and policies are fictional demonstration data. The app runs entirely in the browser and does not implement real authentication, server-side authorization, a PostgreSQL database, email notifications, or durable shared storage. Do not use it to manage real library accounts or circulation. The university's current policies, official contact details, and photographs have not been verified; replace placeholders with approved institutional information before publication.
-
-A production implementation should add a backend API, PostgreSQL with migrations, secure server-side authentication and role checks, transactional inventory operations, audit logging, validation, and integration tests. The UI's localStorage model is intended only for a single-browser walkthrough.
-
-
-
-
-## Photos and motion
-
-The login panel and Library gallery use photographs of Gautam Buddha Central Library from Wikimedia Commons. Credits and CC BY-SA 4.0 license links appear in the gallery. The photos load from Wikimedia, so an internet connection is needed to display them. Page transitions and card hover motion respect reduced-motion preferences.
-
+Seeded catalogue, members, and circulation entries are fictional demo records. Confirm university policies, contact details, and image permissions before using this as an official BBAU service. This is a functional single-server project; it is not yet integrated with university identity systems, email, or a managed PostgreSQL service.
