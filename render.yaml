@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: bbau-library
+    runtime: node
+    plan: starter
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    disk:
+      name: bbau-library-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: ADMIN_EMAIL
+        value: admin@bbau.ac.in
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: DATABASE_FILE
+        value: /var/data/bbau-library.sqlite
