@@ -1,0 +1,8 @@
+.agents/
+.codex/config.toml
+work/
+outputs/
+node_modules/
+.DS_Store
+Thumbs.db
+
