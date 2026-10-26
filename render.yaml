@@ -2,7 +2,7 @@ services:
   - type: web
     name: bbau-library
     runtime: docker
-    plan: starter
+    plan: free
     dockerfilePath: ./backend/Dockerfile
     dockerContext: .
     healthCheckPath: /api/health
@@ -18,3 +18,4 @@ services:
         sync: false
       - key: COOKIE_SECURE
         value: "true"
+
