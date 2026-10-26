@@ -1,0 +1,1 @@
+The login, registration, dashboard, catalog, and issue/return pages are rendered by the single-page application in `../index.html` and `../js/app.js`. These HTML entry files preserve the requested direct page URLs while keeping one authenticated app session.

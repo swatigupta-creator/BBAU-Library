@@ -1,44 +1,83 @@
-# BBAU Digital Library
+# BBAU Digital Library — Java + Spring Boot + MongoDB
 
-A responsive library management website for Babasaheb Bhimrao Ambedkar University. It includes a Node.js/Express API, SQLite persistence, server-side student/admin accounts, and role-checked borrowing and library management actions.
+Responsive library management system for Babasaheb Bhimrao Ambedkar University. The backend uses Java 17, Spring Boot, Spring Data MongoDB, and MongoDB; the existing browser interface is served by the Spring Boot app.
+
+## Folder structure
+
+```text
+LibraryManagementSystem/
+├── backend/
+│   ├── src/main/java/com/library/
+│   │   ├── config/        Mongo seed data, password encoder
+│   │   ├── controller/   REST APIs
+│   │   ├── service/      Authentication and library rules
+│   │   ├── repository/   Spring Data MongoDB repositories
+│   │   ├── model/        Book, User, Member, Loan, Reservation, Activity
+│   │   ├── dto/          API request and response objects
+│   │   ├── exception/    API errors and validation responses
+│   │   └── LibraryApplication.java
+│   ├── src/main/resources/application.properties
+│   ├── pom.xml
+│   └── Dockerfile
+├── frontend/
+│   ├── pages/            login, register, dashboard, books, issue-return entry points
+│   ├── css/styles.css
+│   ├── js/app.js
+│   ├── assets/
+│   └── index.html
+├── docs/API-documentation.md
+├── .env.example
+└── README.md
+```
+
+The named HTML files in `frontend/pages/` lead into the existing single-page application, where login, registration, dashboard, catalog, and circulation views are rendered.
 
 ## Requirements
 
-- Node.js 22.5 or newer
-- npm
+- Java 17 or newer
+- Maven 3.6.3 or newer
+- A MongoDB deployment: MongoDB Atlas or local MongoDB Community Server
+
+## Connect MongoDB Atlas
+
+1. In MongoDB Atlas, create a cluster and a database user. In **Network Access**, allow the IP address of the machine running the app.
+2. Choose **Connect → Drivers → Java** and copy the connection URI. Replace the password placeholder; URL-encode special characters in the password.
+3. Copy `.env.example` to `.env` in the project root. Set `MONGODB_URI` to the private connection URI, choose a strong `ADMIN_PASSWORD`, and keep `.env` out of Git.
+4. Set `MONGODB_DATABASE=bbau_library`. MongoDB creates the database and collections automatically when the app first writes data; sample catalog and circulation data are seeded on first startup.
+
+Never paste your MongoDB URI or database password into a public repository or chat.
 
 ## Run locally
 
-1. Open this folder in VS Code.
-2. Install dependencies: npm install
-3. Run npm run setup. It creates a private .env file and prints a one-time administrator password; save that password.
-4. Start the app: npm start
-5. Open http://localhost:3000 and sign in as admin@bbau.ac.in using the generated password. New students can register from the Student login screen.
+From PowerShell at the project root:
 
-The .env file is ignored by Git. To change the administrator password later, edit ADMIN_PASSWORD in .env and restart the server.
+```powershell
+if (-not (Test-Path .env)) { Copy-Item .env.example .env }
+```
 
-The SQLite database is created at data/bbau-library.sqlite the first time the server runs. Sample book and circulation records are inserted for a first walkthrough. Student accounts are created from the Student registration flow. The administrator email and password come from .env.
+Edit `.env` with your Atlas URI and a strong admin password. Then:
+
+```powershell
+cd backend
+mvn spring-boot:run
+```
+
+Keep the terminal running and open http://localhost:8080. Admin email is set by `ADMIN_EMAIL` (default `admin@bbau.ac.in`); admin password is `ADMIN_PASSWORD`. Students create separate accounts from the student registration screen.
 
 ## Backend
 
-- Express serves the frontend and JSON API from one origin.
-- SQLite stores the library state and user records persistently on disk.
-- Passwords are hashed with bcrypt; sessions use HTTP-only, same-site cookies.
-- Login requests are rate-limited.
-- Student endpoints only allow a student to borrow available books, reserve unavailable titles, and cancel their own reservations.
-- Admin-only state updates back the add-book, add-member, issue/return, reservation queue, and report features.
-- Support requests are saved to SQLite.
+- Spring MVC serves the frontend and JSON API from one origin.
+- MongoDB collections hold users, books, members, loans, reservations, activities, and support requests.
+- Student passwords are BCrypt-hashed; the admin password is also encoded before it is stored.
+- Sessions use HTTP-only, same-site cookies.
+- Login requests are expected to be deployed behind a rate-limiting proxy before production use.
+- Students can borrow available books, reserve unavailable titles, and cancel their own reservations.
+- Admin-only state updates back add-book, member, issue/return, reservations, and reports in the interface.
 
-## Important deployment note
+## Deploy
 
-For production, use HTTPS, set a strong persistent SESSION_SECRET, configure an administrator password through the hosting provider's secret settings, and attach persistent disk storage for the SQLite database. Sessions and app data are stored in SQLite on the attached disk. The single-file database is intended for a single server instance; use a managed database before horizontal scaling. Never commit .env or the SQLite database.
+`render.yaml` describes a Docker-based Spring Boot service. Before deploying, create MongoDB Atlas and set `MONGODB_URI`, `MONGODB_DATABASE`, `ADMIN_PASSWORD`, and `COOKIE_SECURE=true` in the hosting provider's secret/environment settings. Add the host's outbound addresses to the Atlas IP access list. The Java API and frontend are deployed together; GitHub Pages alone cannot run this backend.
 
-## Demo data and limitations
+## Demo-data notice
 
-Seeded catalogue, members, and circulation entries are fictional demo records. Confirm university policies, contact details, and image permissions before using this as an official BBAU service. This is a functional single-server project; it is not yet integrated with university identity systems, email, or a managed PostgreSQL service.
-
-## Deploy on Render
-
-The repository includes render.yaml for a Node web service, HTTPS, health checks, and a 1 GB persistent disk mounted at /var/data. In Render, choose New > Blueprint, connect this GitHub repository, and apply the Blueprint. Render will ask for ADMIN_PASSWORD; choose a strong password and save it. The generated SESSION_SECRET and database path are configured by the Blueprint. After deployment, open the service URL and sign in as admin@bbau.ac.in.
-
-This setup uses Render's paid Starter web service because persistent disks are not available on free web services. Render lists persistent disk storage at $0.25 per GB per month, in addition to service compute charges. Check Render's current pricing before applying the Blueprint. SQLite on a single attached disk supports one server instance; do not scale this service horizontally.
+The seeded books, members, and circulation records are fictional demo data. This project is not connected to BBAU identity systems or official university records. Confirm university policies and image permissions before official use.

@@ -1,24 +1,20 @@
 services:
   - type: web
     name: bbau-library
-    runtime: node
+    runtime: docker
     plan: starter
-    buildCommand: npm ci
-    startCommand: npm start
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: .
     healthCheckPath: /api/health
     autoDeploy: true
-    disk:
-      name: bbau-library-data
-      mountPath: /var/data
-      sizeGB: 1
     envVars:
-      - key: NODE_ENV
-        value: production
-      - key: SESSION_SECRET
-        generateValue: true
+      - key: MONGODB_URI
+        sync: false
+      - key: MONGODB_DATABASE
+        value: bbau_library
       - key: ADMIN_EMAIL
         value: admin@bbau.ac.in
       - key: ADMIN_PASSWORD
         sync: false
-      - key: DATABASE_FILE
-        value: /var/data/bbau-library.sqlite
+      - key: COOKIE_SECURE
+        value: "true"
